@@ -45,7 +45,7 @@ class SafariExtensionHandler: SFSafariExtensionHandler {
                     return
                 }
                 
-                let amount = (operationElements[1] as NSString).floatValue
+                let amount = (operationElements[1].replacingOccurrences(of: ",", with: ".") as NSString).floatValue
                 
                 let details = operationElements[2]
                 
