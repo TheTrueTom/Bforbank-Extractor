@@ -87,7 +87,12 @@ class SafariExtensionHandler: SFSafariExtensionHandler {
     
     func saveInFile(dataString: String) {
         
-        let filePath = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .userDomainMask, true).first!).appendingPathComponent("bforbank-export.ofx")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMddHHmmss"
+        
+        let filename = "BfB-" + dateFormatter.string(from: Date()) + ".ofx"
+        
+        let filePath = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .userDomainMask, true).first!).appendingPathComponent(filename)
         
         do {
             try dataString.write(to: filePath, atomically: false, encoding: .utf8)
