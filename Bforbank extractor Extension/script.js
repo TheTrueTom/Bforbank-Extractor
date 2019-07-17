@@ -26,13 +26,19 @@ function handleExtensionMessage()
         if (currentTR.className == "tr-section") {
             date = currentTR.getElementsByTagName("th")[0].innerHTML.toString().replace(/<span>|<\/span>|<p>|<\/p>|\t|\n/g, '').replace('<i class=\"fa fa-calendar\"></i> Opérations du ', '').replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'');
         } else if (currentTR.className == "tr-trigger send-tc-submit") {
+            details = currentTR.getElementsByTagName("td")[0].innerHTML.toString().replace(/<span>|<\/span>|<p>|<\/p>|\t|\n/g, '').replace('&nbsp;€', '').replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'');
             amount = currentTR.getElementsByTagName("td")[1].innerHTML.toString().replace(/<span>|<\/span>|<p>|<\/p>|\t|\n/g, '').replace('&nbsp;€', '').replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'');
         } else if (currentTR.className == "tr-more") {
-            details = currentTR.getElementsByTagName("td")[0].innerHTML.toString().replace(/<span>|<\/span>|<p>|<\/p>|\t/g, '').replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'').replace(/\n\n/gm, '');
-            console.log(details)
+            moreDetails = currentTR.getElementsByTagName("td")[0].innerHTML.toString().replace(/<span>|<\/span>|<p>|<\/p>|\t/g, '').replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'').replace(/\n\n/gm, '');
+            
+            if (moreDetails != '') {
+                details = moreDetails;
+            }
             
             var operation = [date, amount, details];
             allOperations.push(operation);
+            
+            console.log(details)
         }
     }
     
